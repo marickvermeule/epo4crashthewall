@@ -1,0 +1,20 @@
+Speed 155 Stop 140
+300cm	50cm:	470-545
+300cm	30cm:	545-623
+200cm	50cm:	623-667
+200cm	30cm:	667-709
+500cm	50cm:	709-786
+500cm	30cm:	786-863
+
+Speed 160 Stop 135
+300cm	50cm:	863-900
+Nothing:	900-914
+300cm	30cm:	914-948
+300cm	70cm:	948-983
+300cm	90cm:	983-1021
+600cm	100cm:	1021-1065
+600cm	100cm:	1065-1109
+
+Speed 165 Stop 135
+600cm	200cm:	1109-1255
+600cm	150cm:	1255-1730 (last few measurements are not right as it went forwards again instead of stoping)
