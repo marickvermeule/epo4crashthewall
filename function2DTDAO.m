@@ -70,6 +70,6 @@ for i=1:10
 end
 
 last=inv(A.'*A)*A.'*b
-TDAO=last(1:2)
+[x,y]=last(1:2)
 end
 
