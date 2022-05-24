@@ -1,4 +1,64 @@
-function [x,y,z]=Loc(r)
+load Audio_Reference_Localization.mat
+load test_data_5_24.mat
+time=[];
+samples=[];
+r=[];
+count=1;
+x=[];
+y=[];
+audioref(2*48000:3*48000);
+data(2*48000:3*48000,1);
+
+hhat_1=ch3(audioref,data(5*48000:6*48000,1),0.7,48000);
+hhat_2=ch3(audioref,data(5*48000:6*48000,2),0.7,48000);
+hhat_3=ch3(audioref,data(5*48000:6*48000,3),0.7,48000);
+hhat_4=ch3(audioref,data(5*48000:6*48000,4),0.7,48000);
+hhat_5=ch3(audioref,data(5*48000:6*48000,5),0.7,48000);
+x_axis=(1:48000)/48000;
+figure(1)
+
+hold on
+plot(x_axis,hhat_1)
+plot(x_axis,hhat_2)
+plot(x_axis,hhat_3)
+plot(x_axis,hhat_4)
+plot(x_axis,hhat_5)
+
+
+%plot(audioref(1:48000));
+%plot(data(1:48000,1));
+hold off
+figure(2)
+hold on
+plot(data(5*48000:6*48000,1));
+plot(data(5*48000:6*48000,2));
+plot(data(5*48000:6*48000,3));
+plot(data(5*48000:6*48000,4));
+plot(data(5*48000:6*48000,5));
+hold off
+%plot(x_axis,hhat)
+
+[y(1,1:2),x(1,1:2)]=findpeaks(hhat_1);
+[y(2,1:2),x(2,1:2)]=findpeaks(hhat_2);
+[y(3,1:2),x(3,1:2)]=findpeaks(hhat_3);
+[y(4,1:2),x(4,1:2)]=findpeaks(hhat_4);
+[y(5,1:2),x(5,1:2)]=findpeaks(hhat_5);
+
+for i=1:5
+    for j=1:5
+        if j>i
+            samples(count)=x(i,1)-x(j,1)
+            time(count)=(x(i,1)-x(j,1))/48000;
+            r(count)=343*(x(i,1)-x(j,1))/48000;
+            count=count+1;
+        end
+    end
+end
+
+x_car=Loc(r)
+
+
+function x=Loc(r)
 
 %loc=[1.2222,0.3344,2] %ONLY FOR TESTS
 %d=[];
@@ -40,8 +100,8 @@ x_mic(4)=mic4(1)^2+mic4(2)^2+mic4(3)^2;
 x_mic(5)=mic5(1)^2+mic5(2)^2+mic5(3)^2;
 
 %Creating vector b
-for i=1:10
-    for j=1:10
+for i=1:5
+    for j=1:5
         if j>i
             b(count)=r(count)^2-x_mic(i)+x_mic(j);
             count=count+1;
@@ -80,7 +140,8 @@ end
 % inv(A.'*A)
 % inv(A.'*A)*A.'
  last=inv(A.'*A)*A.'*b
- [x,y,z]=last(1:3)
+ last(1:3)
+ x=last(1:3)
 end
 %             
  % 1,2 1,3 1,4 1,5 2,3 2,4 2,5 3,4 3,5 4,5
