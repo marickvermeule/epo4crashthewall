@@ -1,9 +1,9 @@
 % Connecting the Bluetooth:
-% com = '8';
-% P = ['\\.\COM', com];
-% comport = P; % the actual COM port
-% % to use varies.
-% result = EPOCommunications('open',comport);
+com = '16';
+P = ['\\.\COM', com];
+comport = P; % the actual COM port
+% to use varies.
+result = EPOCommunications('open',comport);
 
 % Variables:
 x_field = 480;
@@ -16,8 +16,8 @@ x0 = 0;
 y0 = 0;
 
 % End points:
-x1 = 70;
-y1 = 30;
+x1 = 180;
+y1 = 150;
 
 x = x1-x0;
 y = y1-y0;
@@ -31,7 +31,7 @@ R = sqrt(x^2+y^2)/(2*sin(theta)); % this is the Radius of the circle on which th
 
 x_NullPoint = x0+R; % these are the centrepoint of the radius
 y_NullPoint = y0; % same as above
-
+s = 2*theta*R/100;
 i_max = 100;
 % Calculate the position (x,y) & angle of the Car at given point on the
 % trajectory:
@@ -41,13 +41,13 @@ for i = 1:i_max
     Angle_trajectory(i) = asin(y_trajectory(i)/R);
 end;
     
-plot(x_trajectory, y_trajectory)
+%plot(x_trajectory, y_trajectory)
 
 %x_in = input(localisation);
 %y_in = input(localisation);
 
 % Calculations:
-alpha = atan(2*L*sin(2*atan(y/x))/(sqrt(x^2+y^2)));
+alpha = atan(2*L*sin(2*atan(x/y))/(sqrt(x^2+y^2)));
 alpha_degree = alpha*180/pi;
 
 % The angle of the car at the final position ( ==
@@ -55,26 +55,26 @@ alpha_degree = alpha*180/pi;
 Car_angle = 2*theta;
 Car_angle_degree = Car_angle*180/pi;
 
-D = 150-(1.35*alpha);
+D = 150-(1.15*alpha_degree);
 
 % Returning the value to the Car:
 direction = ['D', int2str(D)];
 
 % Drive:
-% EPOCommunications('transmit', direction);   % direction
-% EPOCommunications('transmit','M156');   % speed
+EPOCommunications('transmit', direction);   % direction
+EPOCommunications('transmit','M156');   % speed
 
 % Depending on the real position to the intended breaking position (& the
 % allowed error epsilon)
 % if ((x_in-x1)^2+(y_in-y1)^2 <= epsilon^2)
-%     EPOCommunications('transmit', 150);   % direction
+%     EPOCommunications('transmit', 'D150');   % direction
 %     EPOCommunications('transmit','M150');   % speed
 % end;
 
-%pause(3);
+pause(1.7*s+0.7); % the additional term (+0.7) is needed for small distances, but not for large ones. find a  relation that gives the time needed dependent on the distance;
 
-%EPOCommunications('transmit', direction);   % direction
-%EPOCommunications('transmit','M150');   % speed
+EPOCommunications('transmit', direction);   % direction
+EPOCommunications('transmit','M150');   % speed
 
 % Closing the connection:
-% status = EPOCommunications('close',comport);
+status = EPOCommunications('close',comport);
