@@ -3,7 +3,6 @@ load Reference_Data.mat
 
 
 
-
 check_1=0
 check_2=0
 check_3=0
@@ -11,7 +10,15 @@ Loc_array=[];
 while check_1==0
     Location=input("Location of Destination:[x,y]:");
     if prod(size(Location)==[1,2],"all")==1
-        check_1=1;
+        if 0<=Location(1)&Location(1)<=4.8
+            if 0<=Location(2)&Location(2)<=4.8
+                check_1=1;
+            else
+                check_1=0;
+            end
+        else
+            check_1=0;
+        end
     else
         check_1=0;
     end
@@ -24,7 +31,15 @@ while check_2==0
         while check_3==0
             Location=input("Location of Destination:[x,y]:");
             if prod(size(Location)==[1,2],"all")==1
-                check_3=1;
+                if 0<=Location(1)&Location(1)<=4.8
+                    if 0<=Location(2)&Location(2)<=4.8
+                        check_3=1;
+                    else
+                    check_3=0;
+                    end
+                else
+                    check_3=0;
+                end
             else
                 check_3=0;
             end
@@ -38,7 +53,7 @@ while check_2==0
     end
 end
 
-% group_name = 'TA';
+% group_name = 'A2';
 % comport = '\\.\COM17';
 % 
 % resultOpen = EPOCommunications('open', comport)
