@@ -96,12 +96,12 @@ end
 % L = 42;
 % 
 % % Starting points:              % probably make an input off it
-% x0 = x_car(1);
-% y0 = x_car(2);
+% x0 = x_car(1)*100;
+% y0 = x_car(2)*100;
 % 
 % % End points:                   % probably make an input off it
-% x1 = Loc_array(1,1);
-% y1 = Loc_array(1,2);
+% x1 = Loc_array(1,1)*100;
+% y1 = Loc_array(1,2)*100;
 % 
 % x = x1-x0;              % Change to dx
 % y = y1-y0;              % Change to dy
@@ -180,12 +180,12 @@ end
 % L = 42;
 % 
 % % Starting points:              % probably make an input off it
-% x0 = x_car(1);
-% y0 = x_car(2);
+% x0 = x_car(1)*100;
+% y0 = x_car(2)*100;
 % 
 % % End points:                   % probably make an input off it
-% x1 = Loc_array(2,1);
-% y1 = Loc_array(2,2);
+% x1 = Loc_array(2,1)*100;
+% y1 = Loc_array(2,2)*100;
 % 
 % x = x1-x0;              % Change to dx
 % y = y1-y0;              % Change to dy
