@@ -276,10 +276,10 @@ count=1;
 %Mic Locations
 %    [x,y,z]
 mic1=[0,0,0.5];
-mic2=[4,4,0.5];
-mic3=[0,4,0.5];
-mic4=[4,0,0.5];
-mic5=[0,2,0.8];
+mic2=[4.8,4.8,0.5];
+mic3=[0,4.8,0.5];
+mic4=[4.8,0,0.5];
+mic5=[0,2.4,0.8];
 
 %calculating distance ONLY FOR TESTS
 % d(1)=sqrt((loc(1)-mic1(1))^2+(loc(2)-mic1(2))^2+(loc(3)-mic1(3))^2)
