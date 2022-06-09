@@ -1,0 +1,13 @@
+% current orientation and measured orientation are being loaded into this
+% file or into this part of the code 
+% k is chosen at random for now
+k = 100;
+phi = -k(tm-t);
+% making a linear scale
+a = 30/(max(phi)-min(phi));
+b = 165-max(phi)a
+direction = phi*a+b;
+%recalculating
+d = int2str(direction);
+signal = ['D',d];
+EPOCommunications('transmit',signal);
