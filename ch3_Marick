@@ -1,0 +1,63 @@
+Fs = 33 e3 ;
+T1 = 0 . 2 ;
+Lhat = 1 0 0 0 0 0;
+%t ime a x i s
+t = l inspace ( 0 , length ( y1 ) / Fs , length ( y1 ) ) ;
+th = l inspace ( 0 , length ( y1 ) / Fs , Lhat ) ;
+%a d j u s t i n g y1 and y2
+%c h annel e s t im a t i o n from f r e q u e n c y domain
+hhaty2 = ch3 ( y1 , y2 , 0 . 2 , Lhat ) ;
+hhaty1 = ch3 ( y1 , y1 , 0 . 2 , Lhat ) ;
+%c o n v e r t i n g T1 t o nmin
+nmin = (T1∗Lhat∗Fs ) / length ( y1 ) ;
+%d e t e rm i n i n g nmax
+nmx = n ( hhaty1 , nmin ) ;
+tnmax = (length ( y1 ) / Fs ) ∗ (nmx/Lhat ) ;
+%p l o t t i n g code
+subplot ( 2 , 1 , 1 )
+p lot ( th , hhaty1 ) ;
+xlim ( [ 0 . 2 9 0 . 3 2 ] ) ;
+x labe l ( ' time ( s ) ' ) ;
+y labe l ( ' hh a t {1}( t ) ' ) ;
+t i t l e ( ' ch annel e s tim a t e hh a t {1}( t ) ' ) ;
+x l i n e (T1 ) ;
+subplot ( 2 , 1 , 2 )
+p lot ( th , hhaty2 ) ;
+xlim ( [ 0 . 2 9 0 . 3 2 ] ) ;
+x labe l ( ' time ( s ) ' ) ;
+y labe l ( ' hh a t {2}( t ) ' ) ;
+t i t l e ( ' ch annel e s tim a t e hh a t {2}( t ) ' ) ;
+function nmax = n ( x ,min)
+min = f l o or (min) ;
+alph a = max( x ) ;
+alph a 2 = alph a ∗ 0 . 9 ;
+for i = min: length ( x )
+i f x ( i ) > alph a 2
+nmax = i
+break
+e l s e
+nmax = length ( x ) ;
+end
+end
+end
+function hhat = ch3 ( x , y , f r a c , L)
+Ny = length ( y ) ;
+Nx = length ( x ) ;
+i f L == 0
+L = Ny − Nx + 1 ;
+end
+X = f f t ( x , Ny ) ;
+Y = f f t ( y ) ;
+xpeak = abs (max(X ) ) ;
+eps = f r a c ∗xpeak ;
+mu = f ind ( abs (X) < eps ) ;
+HHAT = (Y. /X ) ;
+check = length (mu ) ;
+M = 1 ;
+while M <= check
+HHAT(mu(M) ) = 0 ;
+M = M+1;
+end
+hh a tp re = rea l ( i f f t (HHAT) ) ;
+hhat = hh a tp re ( 1 : L ) ;
+end
